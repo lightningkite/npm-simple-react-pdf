@@ -14,6 +14,10 @@ var _reactDom = require('react-dom');
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _pdfCombined = require('pdfjs-dist/build/pdf.combined.js');
 
 var _pdfCombined2 = _interopRequireDefault(_pdfCombined);
@@ -33,8 +37,7 @@ var SimplePDF = function (_React$Component) {
     _classCallCheck(this, SimplePDF);
 
     // bind
-
-    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(SimplePDF).call(this, props));
+    var _this = _possibleConstructorReturn(this, (SimplePDF.__proto__ || Object.getPrototypeOf(SimplePDF)).call(this, props));
 
     _this.loadPDF = _this.loadPDF.bind(_this);
     return _this;
@@ -58,6 +61,7 @@ var SimplePDF = function (_React$Component) {
       node.style.padding = '0px';
 
       _pdfCombined2.default.getDocument(this.props.file).then(function (pdf) {
+        this.props.notifyNumPages && this.props.notifyNumPages(pdf.numPages);
 
         // no scrollbar if pdf has only one page
         if (pdf.numPages === 1) {
@@ -88,7 +92,14 @@ var SimplePDF = function (_React$Component) {
               viewport: viewport
             };
             page.render(renderContext);
+            this.props.onPageRender && this.props.onPageRender(page);
           });
+        }
+      }).catch(function (error) {
+        if (this.props.onError) {
+          this.props.onError(error);
+        } else {
+          throw error;
         }
       });
     }
@@ -119,4 +130,9 @@ var SimplePDF = function (_React$Component) {
 exports.default = SimplePDF;
 
 
+SimplePDF.propTypes = {
+  onError: _propTypes2.default.func,
+  onPageRender: _propTypes2.default.func,
+  notifyNumPages: _propTypes2.default.func
+};
 module.exports = { SimplePDF: SimplePDF };
