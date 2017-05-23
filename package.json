@@ -25,6 +25,7 @@
   "dependencies": {
     "pdfjs-dist": "^1.5.222",
     "react": "^15.0.0",
+    "prop-types": "^15.5.10",
     "react-dom": "^15.0.0"
   },
   "devDependencies": {
