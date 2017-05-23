@@ -46,6 +46,7 @@ var SimplePDF = function (_React$Component) {
   _createClass(SimplePDF, [{
     key: 'loadPDF',
     value: function loadPDF() {
+      var _this2 = this;
 
       // get node for this react component
       var node = _reactDom2.default.findDOMNode(this).getElementsByClassName("S-PDF-ID")[0];
@@ -61,7 +62,7 @@ var SimplePDF = function (_React$Component) {
       node.style.padding = '0px';
 
       _pdfCombined2.default.getDocument(this.props.file).then(function (pdf) {
-        this.props.notifyNumPages && this.props.notifyNumPages(pdf.numPages);
+        _this2.props.notifyNumPages && _this2.props.notifyNumPages(pdf.numPages);
 
         // no scrollbar if pdf has only one page
         if (pdf.numPages === 1) {
@@ -96,8 +97,8 @@ var SimplePDF = function (_React$Component) {
           });
         }
       }).catch(function (error) {
-        if (this.props.onError) {
-          this.props.onError(error);
+        if (_this2.props.onError) {
+          _this2.props.onError(error);
         } else {
           throw error;
         }

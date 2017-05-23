@@ -27,7 +27,7 @@ export default class SimplePDF extends React.Component {
     node.style.overflowY = "scroll";
     node.style.padding = '0px';
 
-    PDF.getDocument(this.props.file).then(function(pdf) {
+    PDF.getDocument(this.props.file).then(pdf => {
       this.props.notifyNumPages && this.props.notifyNumPages(pdf.numPages);
 
       // no scrollbar if pdf has only one page
@@ -62,7 +62,7 @@ export default class SimplePDF extends React.Component {
           this.props.onPageRender && this.props.onPageRender(page);
         });
       }
-    }).catch(function(error) {
+    }).catch(error => {
       if (this.props.onError) {
         this.props.onError(error);
       } else {
