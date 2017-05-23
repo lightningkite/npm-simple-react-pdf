@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 import PDF from 'pdfjs-dist/build/pdf.combined.js';
 
 export default class SimplePDF extends React.Component {
@@ -57,7 +58,14 @@ export default class SimplePDF extends React.Component {
             viewport      : viewport
           };
           page.render(renderContext);
+          this.props.onPageRender && this.props.onPageRender(page);
         });
+      }
+    }).catch(function(error) {
+      if (this.props.onError) {
+        this.props.onError(error);
+      } else {
+        throw error;
       }
     });
   }
@@ -79,4 +87,8 @@ export default class SimplePDF extends React.Component {
   }
 }
 
+SimplePDF.propTypes = {
+  onError: PropTypes.func,
+  onPageRender: PropTypes.func,
+}
 module.exports = { SimplePDF: SimplePDF };
