@@ -37,7 +37,7 @@ export default class SimplePDF extends React.Component {
 
       for (var id=1,i=1; i<=pdf.numPages; i++) {
 
-        pdf.getPage(i).then(function(page) {
+        pdf.getPage(i).then(page => {
 
           // calculate scale according to the box size
           var boxWidth = node.clientWidth;

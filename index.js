@@ -93,7 +93,7 @@ var SimplePDF = function (_React$Component) {
               viewport: viewport
             };
             page.render(renderContext);
-            this.props.onPageRender && this.props.onPageRender(page);
+            _this2.props.onPageRender && _this2.props.onPageRender(page);
           });
         }
       }).catch(function (error) {
